@@ -19,7 +19,7 @@ module RailsACL
 
   # Fake rule representing nothing matched a subject when looking up its ability.
   class NullRule # :nodoc:
-    def self.authorized?
+    def self.authorized?(*)
       false
     end
   end
