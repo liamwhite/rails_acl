@@ -9,10 +9,11 @@ module RailsACL
       @actions[action] = (block || true)
     end
 
-    def authorized?(action, args)
-      block = @actions[action]
-      return !!block if block.nil? || block == true
-      return block.call(args)
+    def authorized?(action, subject, args)
+      block = @actions[:manage] || @actions[action]
+      return false unless block
+      return true if block == true
+      return !!block.call(*[subject, *args])
     end
   end
 

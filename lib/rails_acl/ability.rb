@@ -35,7 +35,7 @@ module RailsACL
     #
     def can?(action, subject, *args)
       return true if @allow_anything
-      lookup_rule(subject).authorized?(action, args)
+      lookup_rule(subject).authorized?(action, subject, args)
     end
 
     # Convenience method which works the same as "can?" but returns the opposite value.
@@ -102,7 +102,7 @@ module RailsACL
 
     # Find or create a new rule for the specified subject.
     def rule_for(subject)
-      subjects[subject] ||= Rule.new
+      subjects[subject] ||= SubjectRule.new
     end
 
     # Look up a rule for the specified subject.
